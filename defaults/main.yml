@@ -1,2 +1,3 @@
 ---
 # defaults file for oracle-sqldeveloper
+SQLDEVELOPER_BUNDLE: sqldeveloper-4.1.3.20.78-no-jre.zip

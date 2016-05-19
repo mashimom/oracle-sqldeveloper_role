@@ -1,2 +1,14 @@
 ---
 # tasks file for oracle-sqldeveloper
+- stat: path="{{ ansible_env.HOME }}/etc/sqldeveloper"
+  register: sqldeveloper_installed
+
+- apt: name=unzip update_cache=yes cache_valid_time=300
+  become: yes
+
+- unarchive: src={{ SQLDEVELOPER_BUNDLE }} dest=/tmp/ copy=yes
+  when: not sqldeveloper_installed.stat.exists
+
+- file: path={{ ansible_env.HOME }}/.local/share/applications state=directory
+
+- template: src=sqldeveloper.desktop.j2 dest={{ ansible_env.HOME }}/.local/share/applications/sqldeveloper.desktop force=yes
